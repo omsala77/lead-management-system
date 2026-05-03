@@ -1,6 +1,12 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "test_project");
+
+$host = "localhost";
+$user = "root";
+$password = "";
+$db = "test_project";
+
+$conn = new mysqli($host, $user, $password, $db);
 
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    die("Ошибка подключения: " . $conn->connect_error);
 }
