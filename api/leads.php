@@ -1,8 +1,19 @@
 <?php
 header("Content-Type: application/json");
-include "../db.php";
 
-$result = $conn->query("SELECT * FROM leads ORDER BY created_at DESC");
+include "../db.php";
+include "middleware.php";
+
+$user = auth();
+
+$stmt = $conn->prepare("
+    SELECT * FROM leads WHERE user_id = ?
+");
+
+$stmt->bind_param("i", $user->id);
+$stmt->execute();
+
+$result = $stmt->get_result();
 
 $data = [];
 
